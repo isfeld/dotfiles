@@ -9,53 +9,48 @@
 
 #!/bin/bash
 
-# Check if Git is already installed
-if ! command -v git &> /dev/null; then
-    echo "Git is not installed. Installing Git..."
-    # Download and install the Git installer
-    curl -o git_installer.exe -L https://github.com/git-for-windows/git/releases/latest/download/Git-2.33.1-64-bit.exe
-    ./git_installer.exe /VERYSILENT /NORESTART
-    rm git_installer.exe
-    echo "Git installed successfully!"
-else
-    echo "Git is already installed."
-fi
+# Add paths to the system environment and path
+echo "Adding Git, Node.js, and mkcert to system environment and path..."
 
-# Check if Node.js is already installed
-if ! command -v node &> /dev/null; then
-    echo "Node.js is not installed. Installing Node.js..."
-    # Download and install the Node.js installer
-    curl -o node_installer.msi -L https://nodejs.org/dist/v14.17.0/node-v14.17.0-x64.msi
-    msiexec /i node_installer.msi /quiet
-    rm node_installer.msi
-    echo "Node.js installed successfully!"
-else
-    echo "Node.js is already installed."
-fi
+# Add Git to system environment and path
+git_path=$(command -v git)
+echo "Adding Git to system environment and path..."
+powershell.exe -Command "setx /M PATH \"$($env:PATH);$git_path\""
+echo "Git added to system environment and path successfully!"
 
-# Update npm packages globally
-echo "Updating global npm packages..."
-npm update -g
-echo "Global npm packages update completed!"
+# Add Node.js to system environment and path
+node_path=$(command -v node)
+npm_path=$(npm bin -g)
+echo "Adding Node.js to system environment and path..."
+powershell.exe -Command "setx /M PATH \"$($env:PATH);$node_path;$npm_path\""
+echo "Node.js added to system environment and path successfully!"
 
+# Add mkcert to system environment and path
+mkcert_path=$(command -v mkcert)
+echo "Adding mkcert to system environment and path..."
+powershell.exe -Command "setx /M PATH \"$($env:PATH);$mkcert_path\""
+echo "mkcert added to system environment and path successfully!"
 
-# Check if mkcert is already installed
-if ! command -v mkcert &> /dev/null; then
-    echo "mkcert is not installed. Installing mkcert..."
-    # Download and install mkcert
-    curl -L -o mkcert.exe https://github.com/FiloSottile/mkcert/releases/latest/download/mkcert-windows-amd64.exe
-    mv mkcert.exe /usr/local/bin/mkcert
-    chmod +x /usr/local/bin/mkcert
-    echo "mkcert installed successfully!"
-else
-    echo "mkcert is already installed."
-fi
+echo "System environment and path updated successfully!"
 
 # Update Visual Studio Code using Winget
 echo "Updating Visual Studio Code..."
 winget upgrade --name "Visual Studio Code"
 echo "Visual Studio Code update completed!"
 
+# Update npm packages globally
+echo "Updating global npm packages..."
+npm update -g
+echo "Global npm packages update completed!"
+
+# Install additional web development tools and dependencies
+echo "Installing additional web development tools and dependencies..."
+npm install -g create-react-app
+npm install -g express-generator
+npm install -g nodemon
+echo "Additional web development tools and dependencies installed successfully!"
+
+echo "Web development setup completed!"
 
 
 
