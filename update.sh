@@ -46,9 +46,9 @@ echo "Adding Git to system environment variables and PATH..."
 echo 'setx /M PATH "%PATH%;%SYSTEM_ROOT%\\Program Files\\Git\\cmd"' | cmd
 echo "Git added successfully!"
 
-# Update Visual Studio Code using Winget
+# Update Visual Studio Code using winget
 echo "Updating Visual Studio Code..."
-winget upgrade --name "Microsoft.VisualStudioCode"
+winget upgrade --name "Visual Studio Code"
 echo "Update completed!"
 
 
