@@ -27,26 +27,14 @@ else
     echo "Winget is already installed."
 fi
 
-# Check if Git is already installed
-if ! command -v git &> /dev/null; then
-    echo "Git is not installed. Installing Git..."
-    # Download and extract the Git package
-    curl -o git.zip -L https://github.com/git-for-windows/git/releases/latest/download/PortableGit-2.33.1-64-bit.7z.exe
-    7z x -y -bd git.zip -o"$INSTALL_DIR"
-    rm git.zip
-    echo "Git installed successfully!"
-else
-    echo "Git is already installed."
-fi
+# Set up the PATH for Winget
+WINGET_BIN_DIR="$INSTALL_DIR/winget"
+echo 'export PATH="$PATH:'"$WINGET_BIN_DIR"'"' >> "$HOME/.bashrc"
+source "$HOME/.bashrc"
 
-# Add Winget and Git to the user's environment variables
-echo "Adding Winget and Git to user environment variables..."
-echo 'export PATH="$PATH:$HOME/bin"' >> "$HOME/.bashrc"
-echo "Environment variables updated!"
-
-# Update Visual Studio Code using Winget
+# Install or update Visual Studio Code using Winget
 echo "Updating Visual Studio Code..."
-winget upgrade --name "Visual Studio Code"
+winget install --exact --id Microsoft.VisualStudioCode
 echo "Update completed!"
 
 
