@@ -3,5 +3,5 @@
 
  echo "Getting dotfiles from Github"
     git init .
-    git remote add -t \* -f origin <repository-url>
+    git remote add -t \* -f origin <https://github.com/isfeld/dotfiles.git>
     git checkout main
