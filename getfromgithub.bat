@@ -1,7 +1,8 @@
 @powershell -NoProfile -ExecutionPolicy Bypass -Command "iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))" && SET PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin
  
+New-Item "C:\Install\New" -Type Directory
+
+cd New
 
  echo "Getting dotfiles from Github"
-    git init .
-    git remote add -t \* -f origin <https://github.com/isfeld/dotfiles.git>
-    git checkout main
+   git clone https://github.com/isfeld/dotfiles.git . 
